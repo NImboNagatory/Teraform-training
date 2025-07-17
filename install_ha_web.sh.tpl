@@ -14,7 +14,79 @@ apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt-get install -y nginx keepalived jq curl unzip
 
 cat >/var/www/html/index.nginx-debian.html <<EOFHTML
-<html><body><h1>HA Demo: $HOSTNAME ($NODE_STATE)</h1><img src="https://${cdn_domain}/terraform-man-of-automation.png" width="300"><p>Served from $(hostname -i)</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HA Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+    }
+
+    .card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    img {
+      width: 300px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      &:hover {
+        animation: pop 0.3s ease-in-out forwards;
+       transform: scale(1.05);
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .hostname {
+      font-weight: bold;
+      color: #007acc;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.08);
+      }
+      100% {
+        transform: scale(1.05);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>HA Demo: <span class="hostname">$HOSTNAME</span> (<span class="hostname">$NODE_STATE</span>)</h1>
+  <img src="https://${cdn_domain}/terraform-man-of-automation.png" alt="DevOps Hero">
+  <p>Served from <span class="hostname">$HOSTNAME</span></p>
+</div>
+</body>
+</html>
 EOFHTML
 
 systemctl enable nginx || true
