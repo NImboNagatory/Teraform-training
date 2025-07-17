@@ -1,0 +1,31 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Terraform plan files
+*.tfplan
+
+# .terraform directory (modules, provider plugins, etc.)
+.terraform/
+
+# Local override files
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+
+# Sensitive files
+*.pem
+*.key
+*.crt
+
+# IDE/editor folders
+.vscode/
+.idea/
+*.swp
+*.bak
+*.lock.*
+# Mac system files
+.DS_Store
